@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sam Richard, product mind, builder's hands</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTE4MTQiLz4KICA8IS0tIGJ1aWxkZXIgYnJhY2tldCAvIGN1cnNvciBtYXJrIGluIHRlcnJhY290dGEgLS0+CiAgPHBhdGggZD0iTTI0IDIwIEwxNiAzMiBMMjQgNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0I4NTEyRSIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cGF0aCBkPSJNNDAgMjAgTDQ4IDMyIEw0MCA0NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQjg1MTJFIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxjaXJjbGUgY3g9IjMyIiBjeT0iMzIiIHI9IjMuNCIgZmlsbD0iI0Y0RjBFOCIvPgo8L3N2Zz4K">
+<meta name="description" content="Sam Richard, a product manager who builds. Six live products, shipped solo. Product strategy at Textron, EmeraldAI (backed by Nvidia), and Crayond.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Geist:wght@300;400;450;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -35,22 +37,40 @@
     -webkit-font-smoothing:antialiased;overflow-x:hidden;}
   a{color:inherit;text-decoration:none;}
   ::selection{background:var(--acc);color:var(--paper);}
-  .wrap{max-width:980px;margin:0 auto;padding:0 40px;}
-  @media(max-width:640px){.wrap{padding:0 24px;}}
 
-  /* nav */
-  nav.bar{position:sticky;top:0;z-index:40;backdrop-filter:blur(12px);
-    background:rgba(244,240,232,.8);border-bottom:1px solid var(--line);}
-  nav.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
-  .logo{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.01em;display:flex;gap:9px;align-items:center;}
-  .logo .p{width:6px;height:6px;border-radius:50%;background:var(--acc);}
-  .navr{display:flex;gap:28px;font-family:var(--mono);font-size:12.5px;color:var(--ink-3);}
-  .navr a{transition:.2s;}.navr a:hover{color:var(--ink);}
-  .navr a.cta{color:var(--acc);}
-  @media(max-width:640px){.navr a:not(.cta){display:none;}}
+  /* shell: pinned left rail + wide content (Direction A) */
+  .shell{display:grid;grid-template-columns:248px 1fr;max-width:1340px;margin:0 auto;}
+  .rail{position:sticky;top:0;align-self:start;height:100vh;
+    padding:38px 28px 34px 40px;border-right:1px solid var(--line);
+    display:flex;flex-direction:column;}
+  .rail .rname{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:-.01em;line-height:1.05;display:flex;align-items:center;gap:10px;}
+  .rail .rname .p{width:7px;height:7px;border-radius:50%;background:var(--acc);flex-shrink:0;}
+  .rail .rtag{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);line-height:1.5;margin-top:14px;letter-spacing:.01em;}
+  .rail nav.rnav{margin-top:40px;display:flex;flex-direction:column;gap:3px;}
+  .rail nav.rnav a{font-family:var(--mono);font-size:13px;color:var(--ink-3);padding:7px 0;transition:.18s;display:flex;align-items:center;gap:10px;}
+  .rail nav.rnav a::before{content:"";width:0;height:1px;background:var(--acc);transition:.18s;}
+  .rail nav.rnav a:hover,.rail nav.rnav a.active{color:var(--ink);}
+  .rail nav.rnav a:hover::before,.rail nav.rnav a.active::before{width:16px;}
+  .rail .rfoot{margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--ink-4);line-height:1.6;}
+  .rail .rfoot a{color:var(--ink-3);}.rail .rfoot a:hover{color:var(--acc);}
+
+  .content{min-width:0;}
+  .wrap{max-width:none;margin:0;padding:0 64px;}
+  @media(max-width:980px){
+    .shell{grid-template-columns:1fr;max-width:100%;}
+    .rail{position:sticky;top:0;height:auto;flex-direction:row;align-items:center;justify-content:space-between;
+      padding:0 24px;border-right:none;border-bottom:1px solid var(--line);z-index:40;
+      backdrop-filter:blur(12px);background:rgba(244,240,232,.85);min-height:60px;}
+    .rail .rtag,.rail .rfoot{display:none;}
+    .rail .rname{font-size:19px;}
+    .rail nav.rnav{margin-top:0;flex-direction:row;gap:20px;}
+    .rail nav.rnav a::before{display:none;}
+    .wrap{max-width:100%;padding:0 24px;}
+  }
+  @media(max-width:560px){.rail nav.rnav a:not(.cta){display:none;}}
 
   /* hero */
-  .hero{padding:108px 0 84px;}
+  .hero{padding:84px 0 84px;}
   .kick{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase;margin-bottom:28px;}
   h1.head{font-family:var(--serif);font-weight:500;font-size:clamp(46px,7.6vw,88px);line-height:1.02;
     letter-spacing:-.02em;margin-bottom:28px;max-width:16ch;}
@@ -81,30 +101,32 @@
   .ssub{color:var(--ink-2);max-width:60ch;font-size:16.5px;line-height:1.6;}
 
   /* builds, cut hard */
-  .plist{margin-top:40px;}
-  .proj{padding:30px 0;border-top:1px solid var(--line);}
-  .proj:first-child{border-top:none;}
-  .phead{display:flex;justify-content:space-between;align-items:baseline;gap:18px;margin-bottom:12px;}
+  .plist{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .proj{padding:26px 26px;border:1px solid var(--line);border-radius:14px;background:var(--card);display:flex;flex-direction:column;}
+  .proj:first-child{border-top:1px solid var(--line);}
+  .phead{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px;}
   .phead .l{min-width:0;}
-  .pcat{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:7px;}
-  .ptitle{font-family:var(--serif);font-size:clamp(23px,2.8vw,30px);font-weight:600;line-height:1.1;}
-  .ptitle .tag{font-style:italic;font-weight:400;color:var(--ink-3);font-size:.7em;margin-left:8px;}
-  .pstat{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ok);white-space:nowrap;
-    border:1px solid rgba(74,124,89,.4);border-radius:5px;padding:4px 9px;display:inline-flex;gap:6px;align-items:center;flex-shrink:0;}
+  .pcat{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:7px;}
+  .ptitle{font-family:var(--serif);font-size:23px;font-weight:600;line-height:1.12;}
+  .ptitle .tag{display:block;font-style:italic;font-weight:400;color:var(--ink-3);font-size:.66em;margin-left:0;margin-top:4px;}
+  .pstat{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;color:var(--ok);white-space:nowrap;
+    border:1px solid rgba(74,124,89,.4);border-radius:5px;padding:4px 8px;display:inline-flex;gap:6px;align-items:center;flex-shrink:0;}
   .pstat .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);}
 
-  .spark{font-size:16px;line-height:1.62;color:var(--ink-2);margin-bottom:14px;max-width:74ch;}
+  .spark{font-size:14.5px;line-height:1.58;color:var(--ink-2);margin-bottom:14px;max-width:none;}
   .spark b{color:var(--ink);font-weight:500;}
-  .proofline{font-size:14.5px;line-height:1.6;color:var(--ink-2);max-width:74ch;display:flex;gap:11px;}
-  .proofline .k{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--acc);white-space:nowrap;padding-top:3px;flex-shrink:0;}
+  .proofline{font-size:13.5px;line-height:1.55;color:var(--ink-2);max-width:none;display:flex;flex-direction:column;gap:6px;
+    border-top:1px solid var(--line);padding-top:13px;margin-top:4px;}
+  .proofline .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--acc);white-space:nowrap;padding-top:0;flex-shrink:0;}
   .proofline b{color:var(--ink);font-weight:600;}
+  @media(max-width:860px){.plist{grid-template-columns:1fr;}}
 
   details.more{margin-top:14px;}
   details.more summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);display:inline-flex;gap:9px;align-items:center;user-select:none;transition:color .15s;}
   details.more summary:hover{color:var(--acc);}
   details.more summary::-webkit-details-marker{display:none;}
   details.more .car{color:var(--acc);transition:.2s;}details.more[open] .car{transform:rotate(90deg);}
-  details.more .in{padding:14px 0 4px;max-width:74ch;}
+  details.more .in{padding:14px 0 4px;max-width:none;}
   details.more ul{list-style:none;}
   details.more li{position:relative;padding:7px 0 7px 20px;color:var(--ink-2);font-size:14px;line-height:1.55;}
   details.more li::before{content:"";position:absolute;left:0;top:14px;width:7px;height:1px;background:var(--acc);}
@@ -146,8 +168,8 @@
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:12px;color:var(--ink-3);}
 
   /* build-time metric lead */
-  .buildtime{font-family:var(--mono);font-size:11px;letter-spacing:.04em;display:inline-flex;align-items:baseline;gap:8px;margin-bottom:10px;}
-  .buildtime .big{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--acc);font-style:italic;letter-spacing:-.01em;}
+  .buildtime{font-family:var(--mono);font-size:10px;letter-spacing:.04em;display:flex;flex-direction:column;gap:2px;margin-bottom:12px;}
+  .buildtime .big{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--acc);font-style:italic;letter-spacing:-.01em;}
   .buildtime .lbl{color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;}
 
   /* technical workflow inside 'more' */
@@ -195,18 +217,28 @@
 </head>
 <body>
 
-<nav class="bar">
-  <div class="wrap">
-    <div class="logo"><span class="p"></span>Sam Richard</div>
-    <div class="navr">
-      <a href="#work">builds</a><a href="#experience">experience</a><a href="#approach">how i work</a><a class="cta" href="#contact">contact</a>
+<div class="shell">
+
+  <aside class="rail">
+    <div class="rname"><span class="p"></span>Sam Richard</div>
+    <div class="rtag">A product mind with builder's hands. Duke University.</div>
+    <nav class="rnav">
+      <a href="#timeline">the short version</a>
+      <a href="#work">the builds</a>
+      <a href="#experience">experience</a>
+      <a href="#approach">how i work</a>
+      <a class="cta" href="#contact">contact</a>
+    </nav>
+    <div class="rfoot">
+      <a href="mailto:sam.richard@duke.edu">sam.richard@duke.edu</a><br>
+      <a href="https://www.linkedin.com/in/sam-richard/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-  </div>
-</nav>
+  </aside>
+
+  <main class="content">
 
 <header class="hero">
   <div class="wrap">
-    <div class="kick">Product manager who builds, Duke University</div>
     <h1 class="head">A product mind with <em>builder's hands.</em></h1>
     <p class="lede">I do the product thinking <b>and</b> ship the code. I find a problem worth solving, get to the bottom of it, and turn it into a <b>working product</b> you can click, often in a matter of days.</p>
     <div class="cta">
@@ -503,9 +535,27 @@
 
 <footer><div class="wrap"><span>Sam Richard, Master's in Engineering Management, Duke University</span><span>product mind, builder's hands</span></div></footer>
 
+  </main>
+</div>
+
 <script>
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  // active section highlight in rail
+  const navlinks=[...document.querySelectorAll('.rnav a')];
+  const secIds=navlinks.map(a=>a.getAttribute('href')).filter(h=>h&&h.startsWith('#')).map(h=>h.slice(1));
+  const secs=secIds.map(id=>document.getElementById(id)).filter(Boolean);
+  const spy=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        navlinks.forEach(a=>a.classList.remove('active'));
+        const link=navlinks.find(a=>a.getAttribute('href')==='#'+e.target.id);
+        if(link)link.classList.add('active');
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>spy.observe(s));
   document.querySelectorAll('.jt').forEach(el=>el.setAttribute('tabindex','0'));
 </script>
 </body>
