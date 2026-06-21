@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sam Richard, product mind, builder's hands</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Geist:wght@300;400;450;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* warm paper ground, near-black ink, one accent */
+    --paper:#F4F0E8;
+    --paper-1:#EFEAE0;
+    --paper-2:#E7E1D4;
+    --card:#FBF8F2;
+    --line:#DED7C8;
+    --line-2:#CDC4B1;
+    --ink:#1A1814;
+    --ink-2:#46413A;
+    --ink-3:#756E62;
+    --ink-4:#A89F8E;
+    /* the one accent: deep terracotta/sienna, warm but serious */
+    --acc:#B8512E;
+    --acc-2:#9C4426;
+    --acc-soft:#C97A5A;
+    --ok:#4A7C59;
+    --serif:'Newsreader',Georgia,serif;
+    --sans:'Geist',system-ui,sans-serif;
+    --mono:'Geist Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--acc);color:var(--paper);}
+  .wrap{max-width:980px;margin:0 auto;padding:0 40px;}
+  @media(max-width:640px){.wrap{padding:0 24px;}}
+
+  /* nav */
+  nav.bar{position:sticky;top:0;z-index:40;backdrop-filter:blur(12px);
+    background:rgba(244,240,232,.8);border-bottom:1px solid var(--line);}
+  nav.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .logo{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.01em;display:flex;gap:9px;align-items:center;}
+  .logo .p{width:6px;height:6px;border-radius:50%;background:var(--acc);}
+  .navr{display:flex;gap:28px;font-family:var(--mono);font-size:12.5px;color:var(--ink-3);}
+  .navr a{transition:.2s;}.navr a:hover{color:var(--ink);}
+  .navr a.cta{color:var(--acc);}
+  @media(max-width:640px){.navr a:not(.cta){display:none;}}
+
+  /* hero */
+  .hero{padding:108px 0 84px;}
+  .kick{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase;margin-bottom:28px;}
+  h1.head{font-family:var(--serif);font-weight:500;font-size:clamp(46px,7.6vw,88px);line-height:1.02;
+    letter-spacing:-.02em;margin-bottom:28px;max-width:16ch;}
+  h1.head em{font-style:italic;color:var(--acc);font-weight:500;}
+  .lede{font-size:clamp(17px,2.1vw,21px);color:var(--ink-2);max-width:52ch;line-height:1.6;margin-bottom:36px;}
+  .lede b{color:var(--ink);font-weight:500;}
+  .cta{display:flex;gap:13px;flex-wrap:wrap;}
+  .btn{font-family:var(--mono);font-size:13px;font-weight:500;padding:13px 22px;border-radius:8px;
+    border:1px solid var(--line-2);color:var(--ink);background:transparent;transition:.18s;display:inline-flex;gap:8px;align-items:center;}
+  .btn:hover{border-color:var(--ink);}
+  .btn.p{background:var(--acc);color:var(--paper);border-color:var(--acc);font-weight:600;}
+  .btn.p:hover{background:var(--acc-2);}
+
+  /* identity duo */
+  .duo{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .duo .d{padding-top:20px;border-top:2px solid var(--ink);}
+  .duo .d .lab{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--acc);margin-bottom:11px;}
+  .duo .d h3{font-family:var(--serif);font-size:21px;font-weight:600;margin-bottom:7px;line-height:1.2;}
+  .duo .d p{color:var(--ink-2);font-size:14.5px;line-height:1.55;}
+  @media(max-width:600px){.duo{grid-template-columns:1fr;gap:28px;}}
+
+  /* sections */
+  section.S{padding:88px 0;border-top:1px solid var(--line);}
+  .eye{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px;}
+  .eye b{color:var(--acc);font-weight:500;}
+  .stt{font-family:var(--serif);font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-.015em;margin-bottom:14px;max-width:22ch;font-weight:500;}
+  .stt em{font-style:italic;color:var(--acc);}
+  .ssub{color:var(--ink-2);max-width:60ch;font-size:16.5px;line-height:1.6;}
+
+  /* builds, cut hard */
+  .plist{margin-top:40px;}
+  .proj{padding:30px 0;border-top:1px solid var(--line);}
+  .proj:first-child{border-top:none;}
+  .phead{display:flex;justify-content:space-between;align-items:baseline;gap:18px;margin-bottom:12px;}
+  .phead .l{min-width:0;}
+  .pcat{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.03em;margin-bottom:7px;}
+  .ptitle{font-family:var(--serif);font-size:clamp(23px,2.8vw,30px);font-weight:600;line-height:1.1;}
+  .ptitle .tag{font-style:italic;font-weight:400;color:var(--ink-3);font-size:.7em;margin-left:8px;}
+  .pstat{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ok);white-space:nowrap;
+    border:1px solid rgba(74,124,89,.4);border-radius:5px;padding:4px 9px;display:inline-flex;gap:6px;align-items:center;flex-shrink:0;}
+  .pstat .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);}
+
+  .spark{font-size:16px;line-height:1.62;color:var(--ink-2);margin-bottom:14px;max-width:74ch;}
+  .spark b{color:var(--ink);font-weight:500;}
+  .proofline{font-size:14.5px;line-height:1.6;color:var(--ink-2);max-width:74ch;display:flex;gap:11px;}
+  .proofline .k{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--acc);white-space:nowrap;padding-top:3px;flex-shrink:0;}
+  .proofline b{color:var(--ink);font-weight:600;}
+
+  details.more{margin-top:14px;}
+  details.more summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);display:inline-flex;gap:9px;align-items:center;user-select:none;transition:color .15s;}
+  details.more summary:hover{color:var(--acc);}
+  details.more summary::-webkit-details-marker{display:none;}
+  details.more .car{color:var(--acc);transition:.2s;}details.more[open] .car{transform:rotate(90deg);}
+  details.more .in{padding:14px 0 4px;max-width:74ch;}
+  details.more ul{list-style:none;}
+  details.more li{position:relative;padding:7px 0 7px 20px;color:var(--ink-2);font-size:14px;line-height:1.55;}
+  details.more li::before{content:"";position:absolute;left:0;top:14px;width:7px;height:1px;background:var(--acc);}
+  details.more li b{color:var(--ink);font-weight:500;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+  .chip{font-family:var(--mono);font-size:11px;color:var(--ink-3);border:1px solid var(--line-2);border-radius:5px;padding:4px 9px;}
+
+  /* experience */
+  .xp{margin-top:40px;}
+  .xrow{display:grid;grid-template-columns:215px 1fr;gap:38px;padding:32px 0;border-top:1px solid var(--line);}
+  .xrow:first-child{border-top:none;}
+  .xleft .co{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.15;}
+  .xleft .b2{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--acc);
+    border:1px solid var(--acc-soft);border-radius:5px;padding:2px 7px;margin-top:9px;}
+  .xleft .role{color:var(--ink-2);font-size:13.5px;margin-top:11px;line-height:1.45;}
+  .xleft .meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:11px;line-height:1.55;}
+  .xright .desc{color:var(--ink);font-size:15.5px;line-height:1.6;margin-bottom:13px;}
+  .xright .desc b{color:#000;font-weight:600;}
+  .xright ul{list-style:none;}
+  .xright li{position:relative;padding:8px 0 8px 22px;color:var(--ink-2);font-size:14.5px;line-height:1.55;}
+  .xright li::before{content:"";position:absolute;left:0;top:15px;width:7px;height:1px;background:var(--acc);}
+  .xright li b{color:var(--ink);font-weight:600;}
+  @media(max-width:680px){.xrow{grid-template-columns:1fr;gap:14px;}}
+
+  /* approach */
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:42px;}
+  .hc{padding-top:20px;border-top:2px solid var(--line-2);}
+  .hc .st{font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.04em;margin-bottom:14px;}
+  .hc h4{font-family:var(--serif);font-size:21px;font-weight:600;margin-bottom:9px;}
+  .hc p{color:var(--ink-2);font-size:14.5px;line-height:1.58;}
+  @media(max-width:760px){.how{grid-template-columns:1fr;gap:28px;}}
+
+  /* closer */
+  .closer{padding:104px 0;}
+  .closer .big{font-family:var(--serif);font-size:clamp(30px,4.6vw,52px);line-height:1.1;letter-spacing:-.015em;max-width:20ch;margin-bottom:22px;font-weight:500;}
+  .closer .big em{font-style:italic;color:var(--acc);}
+  .closer p{color:var(--ink-2);max-width:52ch;font-size:17px;line-height:1.6;margin-bottom:32px;}
+  footer{padding:38px 0 64px;border-top:1px solid var(--line);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:12px;color:var(--ink-3);}
+
+  /* build-time metric lead */
+  .buildtime{font-family:var(--mono);font-size:11px;letter-spacing:.04em;display:inline-flex;align-items:baseline;gap:8px;margin-bottom:10px;}
+  .buildtime .big{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--acc);font-style:italic;letter-spacing:-.01em;}
+  .buildtime .lbl{color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;}
+
+  /* technical workflow inside 'more' */
+  .wf{margin:4px 0;}
+  .wf .wfh{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:13px;}
+  .wfstep{display:grid;grid-template-columns:22px 1fr;gap:13px;position:relative;padding-bottom:15px;}
+  .wfstep:last-child{padding-bottom:0;}
+  .wfstep .nn{font-family:var(--mono);font-size:11px;color:var(--acc);padding-top:1px;}
+  .wfstep::before{content:"";position:absolute;left:6px;top:18px;bottom:0;width:1px;background:var(--line-2);}
+  .wfstep:last-child::before{display:none;}
+  .wfstep .wt{font-size:13.5px;line-height:1.52;color:var(--ink-2);}
+  .wfstep .wt b{color:var(--ink);font-weight:600;}
+  .wfstep .wt code{font-family:var(--mono);font-size:12px;background:var(--paper-2);padding:1px 5px;border-radius:4px;color:var(--ink);}
+
+  /* product / builder timeline */
+  .tl{margin-top:42px;}
+  .tlrow{display:grid;grid-template-columns:128px 1fr;gap:24px;align-items:center;padding:13px 0;}
+  .tlrow .tlab{font-family:var(--serif);font-size:18px;font-weight:600;}
+  .tlrow .tlab .yr{display:block;font-family:var(--mono);font-size:11px;color:var(--acc);font-weight:400;margin-top:3px;}
+  .tlbar{position:relative;height:36px;background:var(--paper-2);border:1px solid var(--line);border-radius:7px;}
+  .tlfill{position:absolute;top:-1px;bottom:-1px;border-radius:7px;display:flex;align-items:center;padding:0 14px;
+    font-family:var(--mono);font-size:11px;color:var(--paper);white-space:nowrap;}
+  .tlfill.prod{background:var(--acc);}
+  .tlfill.build{background:var(--ink);}
+  .tlaxis{display:grid;grid-template-columns:128px 1fr;gap:24px;margin-top:8px;}
+  .tlaxis .yrs{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--ink-4);}
+  .tlnote{margin-top:22px;color:var(--ink-2);font-size:15px;line-height:1.6;max-width:62ch;}
+  .tlnote b{color:var(--ink);font-weight:600;}
+  @media(max-width:560px){.tlrow,.tlaxis{grid-template-columns:74px 1fr;gap:14px;}.tlrow .tlab{font-size:15px;}}
+
+  /* jargon tooltip */
+  .jt{border-bottom:1px dotted var(--ink-4);cursor:help;position:relative;}
+  .jt .pop{position:absolute;bottom:140%;left:50%;transform:translateX(-50%) translateY(4px);
+    background:var(--ink);color:var(--paper);border-radius:8px;padding:9px 12px;
+    font-family:var(--sans);font-size:12.5px;line-height:1.45;width:230px;
+    opacity:0;visibility:hidden;transition:.18s;z-index:20;box-shadow:0 12px 30px -10px rgba(0,0,0,.3);text-transform:none;letter-spacing:normal;font-weight:400;}
+  .jt:hover .pop,.jt:focus .pop{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+  .jt .pop::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--ink);}
+
+  .rv{opacity:0;transform:translateY(16px);transition:.7s cubic-bezier(.2,.7,.2,1);}
+  .rv.in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+  :focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px;}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <div class="logo"><span class="p"></span>Sam Richard</div>
+    <div class="navr">
+      <a href="#work">builds</a><a href="#experience">experience</a><a href="#approach">how i work</a><a class="cta" href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kick">Product manager who builds, Duke University</div>
+    <h1 class="head">A product mind with <em>builder's hands.</em></h1>
+    <p class="lede">I do the product thinking <b>and</b> ship the code. I find a problem worth solving, get to the bottom of it, and turn it into a <b>working product</b> you can click, often in a matter of days.</p>
+    <div class="cta">
+      <a class="btn p" href="#work">See the builds</a>
+      <a class="btn" href="#experience">Where I've worked</a>
+    </div>
+    <div class="duo">
+      <div class="d">
+        <div class="lab">The product side</div>
+        <h3>Figure out what to build</h3>
+        <p>Customer interviews, positioning, prioritization, the go/no-go case. The judgment about what's worth building, and why.</p>
+      </div>
+      <div class="d">
+        <div class="lab">The builder side</div>
+        <h3>Then actually build it</h3>
+        <p>Full-stack and hosted, with real integrations and AI under the hood. Not a slide deck, the thing itself.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TIMELINE -->
+<section class="S" id="timeline">
+  <div class="wrap">
+    <div class="eye"><b>01</b> &nbsp;The short version</div>
+    <h2 class="stt rv">Four years doing product. Five years <em>building.</em></h2>
+    <p class="ssub rv">Not new to either. I started as an engineer, moved into product, and never stopped writing code, which is why I can do both halves of the job today.</p>
+    <div class="tl rv">
+      <div class="tlrow">
+        <div class="tlab">Product<span class="yr">~4 years</span></div>
+        <div class="tlbar"><div class="tlfill prod" style="left:20%;right:0;">2022 to now</div></div>
+      </div>
+      <div class="tlrow">
+        <div class="tlab">Building<span class="yr">~5 years</span></div>
+        <div class="tlbar"><div class="tlfill build" style="left:0;right:0;">2021 to now</div></div>
+      </div>
+      <div class="tlaxis">
+        <div></div>
+        <div class="yrs"><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
+      </div>
+    </div>
+    <p class="tlnote rv">Engineering came first (Flask apps, automation, a shipped data tool). Then product: analyst, then product manager, across a startup, an Nvidia-backed company, and a Fortune 500. The two have run together ever since, and lately I've fused them, shipping full products solo.</p>
+  </div>
+</section>
+
+<!-- BUILDS -->
+<section class="S" id="work">
+  <div class="wrap">
+    <div class="eye"><b>02</b> &nbsp;The builds</div>
+    <h2 class="stt rv">Six problems. Six <em>working answers.</em></h2>
+    <p class="ssub rv">Mostly built solo in a single continuous sprint, end to end, and live right now. The time it took is right up front. Open any to see the technical workflow.</p>
+
+    <div class="plist">
+
+      <div class="proj rv">
+        <div class="phead">
+          <div class="l">
+            <div class="buildtime"><span class="big">~12 hrs</span><span class="lbl">idea to live, one sprint</span></div>
+            <div class="pcat">Search visibility for the AI era</div>
+            <div class="ptitle">AEO Audit Tool<span class="tag">does an AI name you?</span></div>
+          </div>
+          <span class="pstat"><span class="dot"></span>LIVE</span>
+        </div>
+        <p class="spark"><b>It tells a company whether ChatGPT and Gemini name them when buyers ask, and scores them red, yellow, or green.</b> Search is moving from Google to AI engines, and whoever the AI names in its answer wins the customer. No one had a way to measure it, so I built one.</p>
+        <p class="proofline"><span class="k">The hard call</span><span><b>Rule-based scoring, not asking an AI to grade.</b> Asking GPT-4 each time is slower, pricier, and answers differently every run. Rules make it free, instant, and identical every time.</span></p>
+        <details class="more"><summary><span class="car">&#9656;</span>see the technical workflow</summary><div class="in">
+          <div class="wf">
+            <div class="wfh">How a scan runs, end to end</div>
+            <div class="wfstep"><span class="nn">01</span><span class="wt"><b>Take a real buying question</b> like "best office space platform in SF" and fan it out to both AI engines at once.</span></div>
+            <div class="wfstep"><span class="nn">02</span><span class="wt"><b>Call GPT-4o and Gemini in parallel,</b> each with live web access, so total time is the slower of the two (~8s), not the sum (~16s).</span></div>
+            <div class="wfstep"><span class="nn">03</span><span class="wt"><b>Score each answer with rules,</b> matching company names, addresses, and pricing against curated lists and patterns. Zero AI cost, millisecond result, identical every run.</span></div>
+            <div class="wfstep"><span class="nn">04</span><span class="wt"><b>Parse the page's hidden <span class="jt">structured data<span class="pop">The machine-readable labels in a page's code that tell an AI what a business is and sells. Most sites get this wrong.</span></span></b> from raw HTML, tolerating broken markup instead of crashing, to see what an AI engine can actually read.</span></div>
+            <div class="wfstep"><span class="nn">05</span><span class="wt"><b>Return a red / yellow / green scoreboard</b> plus the exact <code>&lt;head&gt;</code> code snippet to fix what's missing.</span></div>
+          </div>
+        </div></details>
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">GPT-4o</span><span class="chip">Gemini</span><span class="chip">type-safe API</span></div>
+      </div>
+
+      <div class="proj rv">
+        <div class="phead">
+          <div class="l">
+            <div class="buildtime"><span class="big">~38 hrs</span><span class="lbl">idea to live, one sprint</span></div>
+            <div class="pcat">Hiring quality</div>
+            <div class="ptitle">AI Recruiter Coach<span class="tag">interview quality, made visible</span></div>
+          </div>
+          <span class="pstat"><span class="dot"></span>LIVE</span>
+        </div>
+        <p class="spark"><b>It turns recorded recruiter interviews into automatic coaching and a quality score managers can finally see.</b> The data sits in every call, and nobody was turning it into feedback, so I built the system that does.</p>
+        <p class="proofline"><span class="k">The hard call</span><span><b>Fully automatic, but with a human in the loop.</b> Everything runs itself the second a call ends, yet a person reviews before anything reaches the recruiter, because hiring is too sensitive to fully automate.</span></p>
+        <details class="more"><summary><span class="car">&#9656;</span>see the technical workflow</summary><div class="in">
+          <div class="wf">
+            <div class="wfh">From finished call to coaching</div>
+            <div class="wfstep"><span class="nn">01</span><span class="wt"><b>A call ends and fires a webhook,</b> so the system reacts instantly with no manual upload.</span></div>
+            <div class="wfstep"><span class="nn">02</span><span class="wt"><b>Pull the recording and transcribe it,</b> storing a timestamped transcript.</span></div>
+            <div class="wfstep"><span class="nn">03</span><span class="wt"><b>Run an AI evaluation</b> for an interview score, strengths, and improvement areas, and flag any sensitive or non-compliant questions.</span></div>
+            <div class="wfstep"><span class="nn">04</span><span class="wt"><b>Route to the hiring lead to review</b> before the recruiter sees it, then track how each recruiter improves over time.</span></div>
+          </div>
+        </div></details>
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">Postgres</span><span class="chip">OpenAI</span><span class="chip">webhook capture</span></div>
+      </div>
+
+      <div class="proj rv">
+        <div class="phead">
+          <div class="l">
+            <div class="buildtime"><span class="big">~7 hrs</span><span class="lbl">idea to live, one sprint</span></div>
+            <div class="pcat">Full-stack proof</div>
+            <div class="ptitle">Image Transform Service<span class="tag">empty repo to hosted product</span></div>
+          </div>
+          <span class="pstat"><span class="dot"></span>LIVE</span>
+        </div>
+        <p class="spark"><b>Upload an image, get back a processed, hosted version with a link to share.</b> A clean test of taking something from empty repo to a tool that feels finished, not a coding exercise.</p>
+        <p class="proofline"><span class="k">The point</span><span><b>End to end, with the polish that says finished.</b> Every loading and failure case handled, live and hosted, code public. Here's the link, go press the button.</span></p>
+        <details class="more"><summary><span class="car">&#9656;</span>see the technical workflow</summary><div class="in">
+          <div class="wf">
+            <div class="wfh">Upload to shareable link</div>
+            <div class="wfstep"><span class="nn">01</span><span class="wt"><b>Accept an image</b> (PNG, JPEG, or WEBP) with clear progress feedback.</span></div>
+            <div class="wfstep"><span class="nn">02</span><span class="wt"><b>Run the pipeline:</b> automatic background removal, then a transform.</span></div>
+            <div class="wfstep"><span class="nn">03</span><span class="wt"><b>Host the result and return a shareable URL,</b> with the option to regenerate, swap, or delete in-app.</span></div>
+          </div>
+        </div></details>
+        <div class="chips"><span class="chip">full-stack</span><span class="chip">image API</span><span class="chip">hosted storage</span><span class="chip">shareable links</span></div>
+      </div>
+
+      <div class="proj rv">
+        <div class="phead">
+          <div class="l">
+            <div class="buildtime"><span class="big">4 months</span><span class="lbl">ongoing strategy work</span></div>
+            <div class="pcat">Positioning &amp; product critique</div>
+            <div class="ptitle">NextLM<span class="tag">sharpening an AI product</span></div>
+          </div>
+          <span class="pstat"><span class="dot"></span>LIVE</span>
+        </div>
+        <p class="spark"><b>A product teardown of an early-stage AI sales tool: how to position it, and what's broken under the hood.</b> I went at it as a user trying to break it and a product person trying to sharpen it.</p>
+        <p class="proofline"><span class="k">The insight</span><span><b>It's a timing advantage, not just another lead tool.</b> Its real edge was telling you <i>when</i> a buyer is ready, but the homepage led with generic "find leads" language, so skimmers filed it as ordinary. I made the case to lead with the timing edge.</span></p>
+        <details class="more"><summary><span class="car">&#9656;</span>the product eye, real things a busy team missed</summary><div class="in"><ul>
+          <li><b>Gated data leaking</b> out through an export path.</li>
+          <li><b>A login flow reporting success</b> for email addresses that were never registered.</li>
+          <li><b>Data that claimed to be current</b> but didn't match reality, all found by using the product carefully and writing it up clearly.</li>
+        </ul></div></details>
+        <div class="chips"><span class="chip">positioning</span><span class="chip">onboarding</span><span class="chip">security findings</span></div>
+      </div>
+
+      <div class="proj rv">
+        <div class="phead">
+          <div class="l">
+            <div class="buildtime"><span class="big">~5 days</span><span class="lbl">incl. becoming a partner</span></div>
+            <div class="pcat">Go-to-market tool</div>
+            <div class="ptitle">AgentForce Aligner<span class="tag">I became a partner to build it</span></div>
+          </div>
+          <span class="pstat"><span class="dot"></span>LIVE</span>
+        </div>
+        <p class="spark"><b>It connects to a company's Salesforce, scores how ready they are for AI agents, and projects the return on adopting.</b> Salesforce's adoption push wasn't landing; two interviews told me why, and the fix was leading with numbers.</p>
+        <p class="proofline"><span class="k">The move</span><span><b>I registered as an authorized Salesforce ISV partner org just to build it.</b> Not a mockup: a real connect-your-account-and-see-your-score tool, built solo from idea to working prototype in five days.</span></p>
+        <details class="more"><summary><span class="car">&#9656;</span>see the technical workflow</summary><div class="in">
+          <div class="wf">
+            <div class="wfh">Connect to ROI projection</div>
+            <div class="wfstep"><span class="nn">01</span><span class="wt"><b>A rep connects the company's Salesforce</b> with a secure account link in seconds.</span></div>
+            <div class="wfstep"><span class="nn">02</span><span class="wt"><b>Read the org's data and score readiness,</b> surfacing exactly what's too messy for the AI to perform on.</span></div>
+            <div class="wfstep"><span class="nn">03</span><span class="wt"><b>List the specific fixes</b> that would make the AI agents shine, then <b>project the ROI</b> of adopting so the decision leads with numbers.</span></div>
+          </div>
+        </div></details>
+        <div class="chips"><span class="chip">Python</span><span class="chip">secure account connect</span><span class="chip">OpenAI</span><span class="chip">official partner build</span></div>
+      </div>
+
+      <div class="proj rv">
+        <div class="phead">
+          <div class="l">
+            <div class="buildtime"><span class="big">~26 hrs</span><span class="lbl">idea to live, one sprint</span></div>
+            <div class="pcat">Sales automation, end to end</div>
+            <div class="ptitle">Competitor-to-Outreach Engine<span class="tag">find their clients, draft the email, all but send</span></div>
+          </div>
+          <span class="pstat"><span class="dot"></span>LIVE</span>
+        </div>
+        <p class="spark"><b>A founder wanted his competitors' clients so he could pitch them, and was finding them one by one through LinkedIn mutual connections.</b> Painful, slow, and incomplete. I replaced the whole thing with one pipeline: it finds the companies, finds the right decision-maker at each, and writes a tailored cold email, so all he does is press send from his own inbox.</p>
+        <p class="proofline"><span class="k">The leap</span><span><b>From a manual LinkedIn crawl to a one-button workflow.</b> The hard part wasn't any single step, it was chaining scraping, AI structuring, contact enrichment, and email drafting into one flow that ends with a ready-to-send draft sitting in his inbox.</span></p>
+        <details class="more"><summary><span class="car">&#9656;</span>see the technical workflow</summary><div class="in">
+          <div class="wf">
+            <div class="wfh">Competitor name to ready-to-send email</div>
+            <div class="wfstep"><span class="nn">01</span><span class="wt"><b>Crawl a competitor's site and public footprint</b> and pull the raw content that hints at who their clients are.</span></div>
+            <div class="wfstep"><span class="nn">02</span><span class="wt"><b>Use the OpenAI API to structure the mess</b> into clean target-company records, the step that turns scattered HTML into a real list.</span></div>
+            <div class="wfstep"><span class="nn">03</span><span class="wt"><b>Find the right decision-maker with Apollo,</b> enriching each company with the exact person, their title, and a verified work email.</span></div>
+            <div class="wfstep"><span class="nn">04</span><span class="wt"><b>Generate a tailored cold email per contact</b> with the OpenAI API, written to the specific person and company, not a template blast.</span></div>
+            <div class="wfstep"><span class="nn">05</span><span class="wt"><b>Drop each draft straight into his inbox,</b> addressed and ready. The only human step left is pressing send.</span></div>
+          </div>
+        </div></details>
+        <div class="chips"><span class="chip">Python</span><span class="chip">OpenAI API</span><span class="chip">Apollo.io</span><span class="chip">web scraping</span><span class="chip">inbox integration</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="S" id="experience">
+  <div class="wrap">
+    <div class="eye"><b>03</b> &nbsp;The professional track</div>
+    <h2 class="stt rv">And I've done product work inside <em>real companies.</em></h2>
+    <p class="ssub rv">A Fortune 500 manufacturer, an AI startup backed by Nvidia, and a software studio building for clients worldwide.</p>
+
+    <div class="xp">
+      <div class="xrow rv">
+        <div class="xleft">
+          <div class="co">Textron</div>
+          <div class="b2">CURRENT ROLE</div>
+          <div class="role">Product Manager Intern, Product Strategy</div>
+          <div class="meta">Jun 2026, present<br>United States</div>
+        </div>
+        <div class="xright">
+          <p class="desc">Product strategy at a Fortune 500 manufacturer, on a new vehicle program where <b>hardware and software meet.</b> (Some specifics are confidential, so this stays high level.)</p>
+          <ul>
+            <li>Leading the <span class="jt">business case<span class="pop">A structured argument for whether the company should invest in building a product: market, competition, what customers want, and whether the numbers justify it.</span></span> for a new product concept: sizing the market, mapping the competition, capturing what customers want, and shaping the value proposition behind a major <span class="jt">capital-investment decision<span class="pop">Whether the company commits significant money to develop the product. The kind of call that needs evidence, not a hunch.</span></span>. Genuine zero-to-one work.</li>
+            <li>Acting as the product-side bridge between in-house engineering and an <b>external software partner</b>, turning business needs into clear requirements and closing the gaps between intent and what gets built.</li>
+            <li>Partnering on a <b>data product</b> that turns field sensor data into early-warning signals, helping prevent costly downtime across a fleet.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="xrow rv">
+        <div class="xleft">
+          <div class="co">EmeraldAI</div>
+          <div class="b2">BACKED BY NVIDIA</div>
+          <div class="role">Student Product Consultant</div>
+          <div class="meta">Aug 2025, May 2026<br>Washington, DC</div>
+        </div>
+        <div class="xright">
+          <p class="desc">Market and competitive strategy for a <b>$34.5M AI startup</b> working where data centers meet energy.</p>
+          <ul>
+            <li>Ran market and competitive research across <b>three global regions</b> to find expansion opportunities, fluent in a brand-new market within a week.</li>
+            <li>Built the model weighing <b>battery capacity against AI-driven energy savings</b>, feeding the international expansion plan.</li>
+            <li>Set early product direction across both <b>software and hardware</b> (energy management and battery integration for data centers).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="xrow rv">
+        <div class="xleft">
+          <div class="co">Crayond Digital</div>
+          <div class="role">Product Analyst, then Associate Product Manager</div>
+          <div class="meta">Apr 2023, Apr 2025<br>Chennai, India</div>
+        </div>
+        <div class="xright">
+          <p class="desc">Full product ownership across a multi-year run, shipping software for clients worldwide.</p>
+          <ul>
+            <li>Started as <b>Product Analyst</b>: owned research on a product across 57 competitors and cut scope <b>30%</b> through user research that focused the roadmap.</li>
+            <li>Promoted to <b>APM</b>: co-led a <b>23-person team</b> building eight point-of-sale apps for the Middle East market, wrote <span class="jt">450+ product specs<span class="pop">PRDs, BRDs, and MRDs: the documents that define what gets built, why, and for whom. The blueprints engineering works from.</span></span>, coordinated 24 stakeholders, hit <b>96% on-time delivery</b> and cut defects <b>20%</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="xrow rv">
+        <div class="xleft">
+          <div class="co">Tactii</div>
+          <div class="role">Product Analyst Intern (first PM hire), earlier Developer Intern</div>
+          <div class="meta">2021, 2022<br>Remote</div>
+        </div>
+        <div class="xright">
+          <p class="desc">The bridge between my engineering background and product: I started building, then moved to defining what to build.</p>
+          <ul>
+            <li>First PM hire: set up the team's planning from scratch and improved planning efficiency <b>~85%</b>, taking two products from zero to one.</li>
+            <li>Earlier, as a developer, built and shipped a data-visualization tool (Flask) used by real users, plus scraping and automation pipelines.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="S" id="approach">
+  <div class="wrap">
+    <div class="eye"><b>04</b> &nbsp;How I work</div>
+    <h2 class="stt rv">Same approach, every time.</h2>
+    <p class="ssub rv">I don't write memos about problems. I build the solution and bring it to the table.</p>
+    <div class="how">
+      <div class="hc rv"><div class="st">First</div><h4>Find the real gap</h4><p>A problem that's genuinely unsolved. The signal is usually already there; most teams just can't see it yet. I find it by talking to real people.</p></div>
+      <div class="hc rv"><div class="st">Then</div><h4>Get deep, fast</h4><p>Understand it cold. Interviews, public data, fluent in a new field within days. Then choose the one technical decision that makes it work.</p></div>
+      <div class="hc rv"><div class="st">Finally</div><h4>Ship the answer</h4><p>Full-stack, hosted, something you can click. Built fast with AI in the loop, so deciding to shipping is days, not months.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSER -->
+<section class="closer" id="contact">
+  <div class="wrap">
+    <div class="eye"><b>05</b> &nbsp;Get in touch</div>
+    <p class="big rv">Give me a real problem. I'll bring back a <em>working answer.</em></p>
+    <p class="rv">A product mind and builder's hands in one person, from figuring out what to build to shipping it. I'd rather show you the thing than describe it.</p>
+    <div class="cta rv">
+      <a class="btn p" href="mailto:sam.richard@duke.edu">sam.richard@duke.edu</a>
+      <a class="btn" href="https://www.linkedin.com/in/sam-richard/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>Sam Richard, Master's in Engineering Management, Duke University</span><span>product mind, builder's hands</span></div></footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  document.querySelectorAll('.jt').forEach(el=>el.setAttribute('tabindex','0'));
+</script>
+</body>
+</html>
